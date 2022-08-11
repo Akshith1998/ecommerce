@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../redux/UserSlice";
+import styled from "styled-components";
+import Header from "../components/Header";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -9,7 +11,11 @@ const HomeScreen = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  return <div>HomeScreen</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
 
 export default HomeScreen;
