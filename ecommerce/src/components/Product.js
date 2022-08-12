@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -5,6 +6,7 @@ const Container = styled.div`
   width: 240px;
   padding: 10px;
   border-radius: 8px;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -24,8 +26,12 @@ const Price = styled.span`
 `;
 
 const Product = ({ product }) => {
+  const navigate = useNavigate();
+  const handlenavigate = () => {
+    navigate(`/products/${product._id}`);
+  };
   return (
-    <Container>
+    <Container onClick={handlenavigate}>
       <Image src={product.image} alt="" />
       <Name>{product.name}</Name>
       <Price>${product.price}</Price>

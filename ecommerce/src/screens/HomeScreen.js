@@ -4,6 +4,7 @@ import { getProducts } from "../redux/UserSlice";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Product from "../components/Product";
+import { filter } from "../redux/UserSlice";
 
 const Container = styled.div``;
 
@@ -37,6 +38,9 @@ const HomeScreen = () => {
   const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  const filteredproducts = useSelector(
+    (state) => state.product.filteredproducts
+  );
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -45,7 +49,12 @@ const HomeScreen = () => {
     setHover(!hover);
   };
 
-  const handlecategory = (e) => {};
+  const handlecategory = (e) => {
+    const filteredproducts = products.filter(
+      (product) => product.category === e.target.innerHTML
+    );
+    dispatch(filter(filteredproducts));
+  };
 
   return (
     <Container>
@@ -62,7 +71,7 @@ const HomeScreen = () => {
         )}
       </Category>
       <ProductWrapper>
-        {products.map((product) => {
+        {filteredproducts.map((product) => {
           return <Product product={product} key={product._id} />;
         })}
       </ProductWrapper>
