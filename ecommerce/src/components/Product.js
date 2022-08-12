@@ -2,11 +2,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: 0.6px solid;
   width: 240px;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
+  background: white;
+  -webkit-box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 18px 2px rgba(0, 0, 0, 0.75);
 `;
 
 const Image = styled.img`
@@ -18,6 +21,7 @@ const Image = styled.img`
 
 const Name = styled.h1`
   margin-left: 10px;
+  font-weight: 400;
 `;
 
 const Price = styled.span`
@@ -32,9 +36,10 @@ const Product = ({ product }) => {
   };
   return (
     <Container onClick={handlenavigate}>
+      {/*navigate to ProductScreen on click */}
       <Image src={product.image} alt="" />
       <Name>{product.name}</Name>
-      <Price>${product.price}</Price>
+      <Price>Price : $ {product.price}</Price>
     </Container>
   );
 };

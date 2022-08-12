@@ -5,8 +5,11 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Product from "../components/Product";
 import { filter } from "../redux/UserSlice";
+import { AiOutlineDown } from "react-icons/ai";
 
-const Container = styled.div``;
+const Container = styled.div`
+  background: #ebfafa;
+`;
 
 const Category = styled.div`
   width: 150px;
@@ -16,6 +19,8 @@ const Category = styled.div`
 `;
 
 const SelectProduct = styled.div`
+  display: flex;
+  align-items: center;
   background-color: #ffb3b3;
   border: 1px solid;
   font-size: 20px;
@@ -32,17 +37,24 @@ const ProductWrapper = styled.div`
   grid-row-gap: 30px;
   padding: 10px;
   justify-content: space-evenly;
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: auto auto;
+  }
+  @media only screen and (max-width: 700px) {
+    grid-template-columns: auto;
+  }
 `;
 
 const HomeScreen = () => {
   const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+  const products = useSelector((state) => state.product.products); //get the products from redux store
   const filteredproducts = useSelector(
+    //get the filtered products from redux store
     (state) => state.product.filteredproducts
   );
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts()); //call the getProducts method with no parameters
   }, [dispatch]);
 
   const handlehover = () => {
@@ -53,14 +65,17 @@ const HomeScreen = () => {
     const filteredproducts = products.filter(
       (product) => product.category === e.target.innerHTML
     );
-    dispatch(filter(filteredproducts));
+    dispatch(filter(filteredproducts)); //call the filteredproducts method with the filtered data
   };
 
   return (
     <Container>
       <Header />
       <Category onMouseEnter={handlehover} onMouseLeave={handlehover}>
-        <SelectProduct>Category</SelectProduct>
+        {/*show the categories on hover */}
+        <SelectProduct>
+          Category <AiOutlineDown style={{ margin: "0 10px" }} />
+        </SelectProduct>
         {hover && (
           <CategoryWrapper onClick={(e) => handlecategory(e)}>
             <SelectProduct>men's clothing</SelectProduct>
@@ -71,6 +86,7 @@ const HomeScreen = () => {
         )}
       </Category>
       <ProductWrapper>
+        {/*import Product component and loop through the filtered array to pass the props */}
         {filteredproducts.map((product) => {
           return <Product product={product} key={product._id} />;
         })}

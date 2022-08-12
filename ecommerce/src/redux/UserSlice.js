@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getProducts = createAsyncThunk("product/list", async () => {
+  //get all the products
   const products = await axios.get(
     "https://ecommerce-nuchange.herokuapp.com/products"
   );
@@ -11,6 +12,7 @@ export const getProducts = createAsyncThunk("product/list", async () => {
 export const getProductDetails = createAsyncThunk(
   "product/details",
   async (id) => {
+    //get a particular product based on the object id
     const product = await axios.get(
       `https://ecommerce-nuchange.herokuapp.com/products/${id}`
     );
@@ -19,6 +21,7 @@ export const getProductDetails = createAsyncThunk(
 );
 
 export const Addtocart = createAsyncThunk("product/purchase", async (obj) => {
+  //post request with the id and the quantity in the req body
   const product = await axios({
     url: "http://ecommerce-nuchange.herokuapp.com/product/quantity",
     method: "POST",
@@ -31,14 +34,15 @@ export const productSlice = createSlice({
   name: "product",
   initialState: {
     products: [],
-    filteredproducts: [],
-    productDetails: {},
+    filteredproducts: [], //for filtered data
+    productDetails: {}, //data of a particular product
   },
   reducers: {
     filter: (state, action) => {
       state.filteredproducts = action.payload;
     },
   },
+  //extraReducers used for handling api calls
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.products = action.payload;

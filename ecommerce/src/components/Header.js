@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { RiUserFill } from "react-icons/ri";
 import { FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +13,7 @@ const Container = styled.div`
 const Heading = styled.h1`
   font-weight: 500;
   color: #333333;
+  cursor: pointer;
 `;
 
 const Navbar = styled.div`
@@ -32,9 +34,13 @@ const Span = styled.span`
 `;
 
 const Header = () => {
+  const navigate = useNavigate();
+  const handlenavigate = () => {
+    navigate("/");
+  };
   return (
     <Container>
-      <Heading>ShopKart</Heading>
+      <Heading onClick={handlenavigate}>ShopKart</Heading>
       <Navbar>
         <NavbarLink>
           <RiUserFill />
