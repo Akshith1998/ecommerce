@@ -121,8 +121,10 @@ const ProductScreen = () => {
     setCounter(counter + 1);
   };
 
-  const handleaddtocart = () => {
+  const handleaddtocart = (e) => {
+    e.preventDefault();
     dispatch(Addtocart({ id: productdetails._id, quantity: counter }));
+    navigate("/product/purchase");
   };
 
   return (
@@ -152,7 +154,9 @@ const ProductScreen = () => {
                   style={{ cursor: "pointer" }}
                 />
               </Quantity>
-              <AddToCart onClick={handleaddtocart}>Add to cart</AddToCart>
+              <AddToCart onClick={(e) => handleaddtocart(e)}>
+                Add to cart
+              </AddToCart>
             </SubWrapper>
           )}
           {productdetails.available === 0 && (

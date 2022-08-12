@@ -24,7 +24,7 @@ export const Addtocart = createAsyncThunk("product/purchase", async (obj) => {
     method: "POST",
     data: { _id: obj.id, quantity: obj.quantity },
   });
-  return product.data;
+  return product.data[0];
 });
 
 export const productSlice = createSlice({
